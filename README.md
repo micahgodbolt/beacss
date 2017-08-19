@@ -94,7 +94,7 @@ The exception to this rule is when you must relinquish control of the HTML to th
 	  }
 	}
 
-#### *Why? *
+#### Why?
 
 The ux-component-headline styles all live in the component sass file together, so if changes to the element need to be made, you can see what all the various options are and accommodate accordingly. The data attribute may be applied to HTML as needed. Note that modifiers can use more generic attribute names because the class and attribute must be on the same element.
 
@@ -131,7 +131,7 @@ The ux-component-headline styles all live in the component sass file together, s
 	    }
 	  }
 
-#### *Why? *
+#### Why?
 
 The ux-component-headline styles still all live in the component sass file together. The data attribute may be applied to the HTML as needed. Notice that because this data attribute lives on the component (container) and not the element, the name of the data-attribute is scoped with the name of the component to make sure that this same attribute doesn’t exist in a parent block.  Even though the HTML has two piece of information that control this style (the attribute and the class), all the styles live in one place (in the component.scss), so informed updates can be made to the original styles and the various contexts, without fear of breaking something.
 
@@ -151,7 +151,7 @@ The ux-component-headline styles still all live in the component sass file toget
 	  color: red;
 	}
 
-#### *Why? *
+#### Why?
 
 The new ux-component-headline-unicorn has 1 source from which it gets its styles, just custom-page.scss. Notice that we have added the color: red to the ux-component-headline-unicorn to complete the styles. You’ll need to copy over any existing styles you want to keep, and change what you want using only that custom class.
 
@@ -169,7 +169,7 @@ The new ux-component-headline-unicorn has 1 source from which it gets its styles
 	  font-size: 24px;
 	}
 
-#### *Why not? *
+#### Why not?
 
 The headline element has 2 sources from which it gets its styles, both the library and custom-page.scss. If the ux-component-headline was modified in the component.scss, the custom page would either not be appropriately affected, or would be adversely affected.
 
@@ -187,7 +187,7 @@ The headline element has 2 sources from which it gets its styles, both the libra
 	  font-size: 24px;
 	}
 
-#### *Why not? *
+#### Why not?
 
 The headline element has 2 sources from which it gets its styles, both the library and custom-page.scss. If the ux-component-headline was modified in the component.scss, the custom page would either not be appropriately affected, or would be adversely affected.
 
@@ -210,7 +210,7 @@ The headline element has 2 sources from which it gets its styles, both the libra
 	  font-size: 24px;
 	}
 
-#### *Why not? *
+#### Why not?
 
 The headline element has 2 sources from which it gets its styles, both the library and custom-page.scss. If the ux-component-headline was modified in the component.scss, the custom page would either not be appropriately affected, or would be adversely affected.
 
@@ -233,7 +233,7 @@ Exceptions to this might include background images only, for cards and/or bands.
 	  font-size: 24px;
 	}
 
-#### *Why not? *
+#### Why not?
 
 The headline element has 2 sources from which it gets its styles, both the library and custom-page.scss. If the ux-component-headline was modified in the component.scss, the custom page would either not be appropriately affected, or would be adversely affected.
 
