@@ -135,7 +135,7 @@ The ux-component-headline styles all live in the component sass file together, s
 
 The ux-component-headline styles still all live in the component sass file together. The data attribute may be applied to the HTML as needed. Notice that because this data attribute lives on the component (container) and not the element, the name of the data-attribute is scoped with the name of the component to make sure that this same attribute doesn’t exist in a parent block.  Even though the HTML has two piece of information that control this style (the attribute and the class), all the styles live in one place (in the component.scss), so informed updates can be made to the original styles and the various contexts, without fear of breaking something.
 
-### YES) The headline is the only thing you need to change, and you only want this style to affect your custom page (not-reusable), create a new element **
+### YES) The headline is the only thing you need to change, and you only want this style to affect your custom page (not-reusable), create a new element 
 
 **custom-page.html**
 
@@ -155,7 +155,7 @@ The ux-component-headline styles still all live in the component sass file toget
 
 The new ux-component-headline-unicorn has 1 source from which it gets its styles, just custom-page.scss. Notice that we have added the color: red to the ux-component-headline-unicorn to complete the styles. You’ll need to copy over any existing styles you want to keep, and change what you want using only that custom class.
 
-### NO) Add additional styles to the existing element class **
+### NO) Add additional styles to the existing element class 
 
 **custom-page.html**
 
@@ -441,7 +441,7 @@ There is only one selector for the headline, as opposed to nested selectors. And
 
 Rule #1 - single source of truth.
 
-### YES) Create a new placeholder, copy styles if indeed they exist elsewhere and add custom styles, then extend that placeholder **
+### YES) Create a new placeholder, copy styles if indeed they exist elsewhere and add custom styles, then extend that placeholder 
 
 **library/extends/headlines.scss OR library/custom-page.scss**
 
@@ -465,7 +465,7 @@ Rule #1 - single source of truth.
 
 If this new set of styles is reusable, create a new placeholder, and extend that placeholder. Rule #1 - single source of truth. Now this new placeholder can be updated without fear of breaking something.
 
-### YES) Create a new placeholder that extends another placeholder and add custom styles. Then your selector can extend the new placeholder **
+### YES) Create a new placeholder that extends another placeholder and add custom styles. Then your selector can extend the new placeholder 
 
 **library/extends/headlines.scss**
 	
