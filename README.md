@@ -4,6 +4,7 @@
 <img src="https://cloud.githubusercontent.com/assets/1434956/16282094/155700ba-387c-11e6-957f-fa5dfe0759f6.gif" />
 
 Before we begin let's talk basics...
+
 # **General Sass Best Practices**
 
 1. **Keep an eye on the CSS**
@@ -12,7 +13,7 @@ Before we begin let's talk basics...
 
 2. **Stay DRY [Don't Repeat Yourself]**
 
-    * Whenever possible, use variables, mixins, and placeholders to avoid repetitious code
+    * Whenever possible, use variables, mixins, and placeholders to avoid repetitious code.
 
 3. **Use semantic placeholders**
 
@@ -50,11 +51,11 @@ The exception to this rule is when you must relinquish control of the HTML to th
 
 # **Rule #1** - Every element should have a single source of truth from which it derives all of its styles.
 
-*The what-if scenario:  I want to use an existing component, but I want to modify one style (i.e. the font size) on a element within that component.*
+## The scenario:  I want to use an existing component, but I want to modify one style (i.e. the font size) on a element within that component.
 
-### **Existing component:**
+### Existing component:
 
-**library/component.html**
+	// library/component.html:
 	
 	<div class="ux-component">  <!-- Block -->
 	  <div class="ux-component-headline">   <!-- Element -->
@@ -62,7 +63,7 @@ The exception to this rule is when you must relinquish control of the HTML to th
 	  </div>
 	</div>
 
-**library/component.scss**
+	// library/component.scss:
 
 	.ux-component {
 	  background: gray;  
@@ -72,9 +73,9 @@ The exception to this rule is when you must relinquish control of the HTML to th
 	  }
 	}
 
-### YES) If the styles are reusable across other pages, and the headline is the only thing you need to change, add a data-attribute to the headline element 
+### If the styles are reusable across other pages, and the headline is the only thing I need to change, can I add a data-attribute to the headline element? Yes!
 
-**custom-page.html**
+	// custom-page.html:
 
 	<div class="ux-component">
 	  <div class="ux-component-headline" data-ux-size="xl”>
@@ -82,7 +83,7 @@ The exception to this rule is when you must relinquish control of the HTML to th
 	  </div>
 	</div>
 
-**component.scss**
+	// component.scss:
 
 	.ux-component {
 	  &-headline{
@@ -98,9 +99,9 @@ The exception to this rule is when you must relinquish control of the HTML to th
 
 The ux-component-headline styles all live in the component sass file together, so if changes to the element need to be made, you can see what all the various options are and accommodate accordingly. The data attribute may be applied to HTML as needed. Note that modifiers can use more generic attribute names because the class and attribute must be on the same element.
 
-### YES) If the styles are reusable across other pages, and the context should affect multiple elements within the block, add a data-attribute to the block 
+### If the styles are reusable across other pages, and the context should affect multiple elements within the block, can I add a data-attribute to the block? Yes!
 
-**custom-page.html**
+	// custom-page.html:
 
 	<div class="ux-component" data-ux-component-size="xl”>
 	  <div class="ux-component-headline">
@@ -111,7 +112,7 @@ The ux-component-headline styles all live in the component sass file together, s
      </div>
 	</div>
 
-**component.scss**
+	// component.scss:
 
     .ux-component {
 	   &-headline {
@@ -135,15 +136,15 @@ The ux-component-headline styles all live in the component sass file together, s
 
 The ux-component-headline styles still all live in the component sass file together. The data attribute may be applied to the HTML as needed. Notice that because this data attribute lives on the component (container) and not the element, the name of the data-attribute is scoped with the name of the component to make sure that this same attribute doesn’t exist in a parent block.  Even though the HTML has two piece of information that control this style (the attribute and the class), all the styles live in one place (in the component.scss), so informed updates can be made to the original styles and the various contexts, without fear of breaking something.
 
-### YES) The headline is the only thing you need to change, and you only want this style to affect your custom page (not-reusable), create a new element 
+### If the headline is the only thing I need to change, and I only want this style to affect my custom page (not-reusable), can I create a new class? Yes!
 
-**custom-page.html**
+	// custom-page.html:
 
 	<div class="ux-component">
 	  <div class="ux-component-headline-unicorn">…</div>
 	</div>
 
-**custom-page.scss**
+	// custom-page.scss:
 
 	//@todo -- add this style to .ux-component-headline
 	.ux-component-headline-unicorn {
@@ -155,15 +156,15 @@ The ux-component-headline styles still all live in the component sass file toget
 
 The new ux-component-headline-unicorn has 1 source from which it gets its styles, just custom-page.scss. Notice that we have added the color: red to the ux-component-headline-unicorn to complete the styles. You’ll need to copy over any existing styles you want to keep, and change what you want using only that custom class.
 
-### NO) Add additional styles to the existing element class 
+### Should I add additional styles to the existing element class? Nope!
 
-**custom-page.html**
+	// custom-page.html:
 
 	<div class="ux-component">
 	  <div class="ux-component-headline">…</div>
 	</div>
 
-**custom-page.scss**
+	// custom-page.scss:
 
 	.ux-component-headline {
 	  font-size: 24px;
@@ -173,15 +174,15 @@ The new ux-component-headline-unicorn has 1 source from which it gets its styles
 
 The headline element has 2 sources from which it gets its styles, both the library and custom-page.scss. If the ux-component-headline was modified in the component.scss, the custom page would either not be appropriately affected, or would be adversely affected.
 
-### NO) Create a new class, and add both classes to the element 
+### Should I create a new class, and add both classes to the element? Nope!
 
-**custom-page.html**
+	// custom-page.html:
 
 	<div class="ux-component">
 	  <div class="ux-component-headline ux-component-headline-unicorn">…</div>
 	</div>
 
-**custom-page.scss**
+	// custom-page.scss:
 
 	.ux-component-headline-unicorn {
 	  font-size: 24px;
@@ -191,9 +192,9 @@ The headline element has 2 sources from which it gets its styles, both the libra
 
 The headline element has 2 sources from which it gets its styles, both the library and custom-page.scss. If the ux-component-headline was modified in the component.scss, the custom page would either not be appropriately affected, or would be adversely affected.
 
-### NO) Create a data-attribute for the element in the custom-page.scss, and add it to the element 
+### Should I create a data-attribute for the element in the custom-page.scss, and add it to the element? Nope!
 
-**Custom-page.html**
+	// Custom-page.html:
 
 	<!-- Block -->
 	
@@ -204,7 +205,7 @@ The headline element has 2 sources from which it gets its styles, both the libra
 	  </div>
 	</div>
 
-**custom-page.scss**
+	// custom-page.scss:
 
 	.ux-component-headline[data-ux-headline="unicorn”] {
 	  font-size: 24px;
@@ -216,9 +217,9 @@ The headline element has 2 sources from which it gets its styles, both the libra
 
 Exceptions to this might include background images only, for cards and/or bands. 
 
-### NO - Create a data-attribute for the block in the custom-page.scss, and use it as context for the element 
+### Should I create a data-attribute for the block in the custom-page.scss, and use it as context for the element? Nope!
 
-**Custom-page.html**
+	// Custom-page.html:
 
 	<!-- Block with attribute -->
 	<div class="ux-component" data-ux-size="unicorn”> 
@@ -227,7 +228,7 @@ Exceptions to this might include background images only, for cards and/or bands.
 	  <div class="ux-component-headline">…</div>
 	</div>
 
-**custom-page.scss**
+	// custom-page.scss:
 
 	[data-ux-size="unicorn”] .ux-component-headline {
 	  font-size: 24px;
@@ -244,33 +245,29 @@ The headline element has 2 sources from which it gets its styles, both the libra
 
 (Meaning the child items should match the namespace of the parent)
 
-### YES) Generic headline placeholder that can be placed into any component
+### Should I create a generic headline placeholder that can be placed into any component like this? Yes!
 
-### Components:
+#### Components:
 
-**library/component-A.html**
+	// library/component-A.html:
 
 	<div class="ux-component-A"> <!-- Block -->
-	
 	  <div class="ux-component-A-headline"> <!-- Element -->
-	
 	   …
-	
 	  </div>
-	
 	</div>
 
-**library/component-B.html**
-
+	// library/component-B.html:
+	
 	<div class="ux-component-B"> <!-- Block -->
 	  <div class="ux-component-B-headline"> <!-- Element -->
 	   …
 	  </div>
 	</div>
 
-### Styles:
+#### Styles:
 
-**library/extends/headlines.scss**
+	// library/extends/headlines.scss:
 
 	%fancy-headline {
 	  font-size: 24px;
@@ -284,7 +281,7 @@ The headline element has 2 sources from which it gets its styles, both the libra
 	  color: gray;  
 	}
 
-**library/component-A.scss**
+	// library/component-A.scss:
 
 	.ux-component-A {
 	  &-headline {
@@ -292,7 +289,7 @@ The headline element has 2 sources from which it gets its styles, both the libra
 	  }
 	}
 
-**library/component-B.scss**
+	// library/component-B.scss:
 
 	.ux-component-B {
 	  &-headline {
@@ -300,11 +297,11 @@ The headline element has 2 sources from which it gets its styles, both the libra
 	  }
 	}
 
-### NO) Generic headline style that can be placed into any component
+### Should I create a generic headline class that can be placed on any component like this? Nope!
 
-### Components:
+#### Components:
 
-**library/component-A.html**
+	// library/component-A.html:
 
 	<div class="ux-component-A"> <!-- Block -->
 	  <div class="ux-headline"> <!-- Element -->
@@ -312,7 +309,7 @@ The headline element has 2 sources from which it gets its styles, both the libra
 	  </div>
 	</div>
 
-**library/component-B.html**
+	// library/component-B.html:
 
 	<div class="ux-component-B"> <!-- Block -->
 	  <div class="ux-headline"> <!-- Element -->
@@ -320,9 +317,9 @@ The headline element has 2 sources from which it gets its styles, both the libra
 	  </div>
 	</div>
 
-### Styles:
+#### Styles:
 
-**library/headlines.scss**
+	// library/headlines.scss:
 
 	.ux-headline {
 	  font-size: 24px;
@@ -333,7 +330,7 @@ The headline element has 2 sources from which it gets its styles, both the libra
 
 This breaks our Single Responsibility Principle in that these styles now apply to multiple elements in different blocks. If you are then asked to make the headline in component-B all caps, while keeping component-A with the original styles, you’d have to do the following:
 
-**library/component-B.scss**
+	// library/component-B.scss:
 	
 	.component-B .ux-headline {
 	  text-transform: uppercase;
@@ -341,9 +338,6 @@ This breaks our Single Responsibility Principle in that these styles now apply t
 
 And this breaks rule #1: all elements must have a single source of truth.
 
-#### *Why?*
-
-This invokes the DRY (don’t repeat yourself) principle by storing common styles in one placeholder, while still allowing the headlines of components A and B to remain unique.
 
 * * *
 
@@ -352,7 +346,7 @@ This invokes the DRY (don’t repeat yourself) principle by storing common style
 
 ### Existing component:
 
-**library/component.html**
+	// library/component.html:
 
 	<div class="ux-component"> <!-- Block -->
 	  <div class="ux-component-headline"> <!-- Element -->
@@ -360,9 +354,9 @@ This invokes the DRY (don’t repeat yourself) principle by storing common style
 	  </div>
 	</div>
 
-### NO) Nest the full element class inside the block class 
+### Should I nest the full element class inside the block class like this? Nope!
 
-**library/component.scss**
+	// library/component.scss:
 
 	.ux-component {
 	  background: gray;  
@@ -376,9 +370,9 @@ This invokes the DRY (don’t repeat yourself) principle by storing common style
 
 If you needed to change the component name, you’d have to do it in multiple places, as well as having to type the name of the component over and over. This violates the principle of DRY (don’t repeat yourself) code. Additionally, this will generate nested selectors, which violates rule #1.
 
-### NO) List the full element class separately 
+### Should I list the full element class separately like this? Nope!
 
-**library/component.scss**
+	// library/component.scss:
 
 	.ux-component {
 	  background: gray;  
@@ -394,9 +388,9 @@ If you needed to change the component name, you’d have to do it in multiple pl
 
 If you needed to change the component name, you’d have to do it in multiple places, as well as having to type the name of the component over and over. This violates the principle of DRY (don’t repeat yourself) code.
 
-### YES) Nest the element inside the block, and extend the name using &-
+### Should I nest the element inside the block, and extend the name using `&-` like this? Yes!
 
-**library/component.scss**
+	// library/component.scss:
 
 	.ux-component {
 	  background: gray;  
@@ -415,11 +409,11 @@ There is only one selector for the headline, as opposed to nested selectors. And
 
 # Rule #4 - Use extends OR write custom style properties; not both
 
-*Scenario - I want to extend a placeholder because I’m using all the same styles, but I need to override one thing!*
+## The what-if scenario: I want to extend a placeholder because I’m using all the same styles, but I need to override one thing!*
 
 ### Existing Styles:
 
-**library/extends/headlines.scss**
+	// library/extends/headlines.scss:
 
 	%fancy-headline {
 	  font-size: 24px;
@@ -427,9 +421,9 @@ There is only one selector for the headline, as opposed to nested selectors. And
 	  color: gray;  
 	}
 
-### YES) Create a custom selector, copy styles if indeed they exist elsewhere and add custom styles 
+### Should I create a custom selector and add all the styles I need like this? Yes!
 
-**library/custom-page.scss**
+	// library/custom-page.scss:
 	
 	.ux-unicorn-headline {
 	    font-size: 24px;
@@ -441,9 +435,9 @@ There is only one selector for the headline, as opposed to nested selectors. And
 
 Rule #1 - single source of truth.
 
-### YES) Create a new placeholder, copy styles if indeed they exist elsewhere and add custom styles, then extend that placeholder 
+### Should I create a new placeholder, copy styles if indeed they exist elsewhere and add custom styles, then extend that placeholder like this? Yes!
 
-**library/extends/headlines.scss OR library/custom-page.scss**
+	// library/extends/headlines.scss OR library/custom-page.scss:
 
 	%snazzy-headline {
 	    font-size: 24px;
@@ -451,7 +445,7 @@ Rule #1 - single source of truth.
 	    color: pink;
 	}
 
-**library/custom-page.scss**
+	// library/custom-page.scss:
 
 	.ux-unicorn-headline {
 	    @extend %snazzy-headline;
@@ -465,9 +459,11 @@ Rule #1 - single source of truth.
 
 If this new set of styles is reusable, create a new placeholder, and extend that placeholder. Rule #1 - single source of truth. Now this new placeholder can be updated without fear of breaking something.
 
-### YES) Create a new placeholder that extends another placeholder and add custom styles. Then your selector can extend the new placeholder 
+### Should I create a new *placeholder* that extends another placeholder and add custom styles like this? Yes! 
 
-**library/extends/headlines.scss**
+Then your class selector can extend the new placeholder.
+
+	// library/extends/headlines.scss:
 	
 	%lovely-headline {
 	  font-size: 24px;
@@ -484,7 +480,7 @@ If this new set of styles is reusable, create a new placeholder, and extend that
 	    color: pink;
 	}
 
-**library/custom-page.scss**
+	// library/custom-page.scss:
 
 	.ux-unicorn-headline {
 	    @extend %fancy-headline;
@@ -498,9 +494,9 @@ If this new set of styles is reusable, create a new placeholder, and extend that
 
 If this new set of styles is reusable across multiple components, create a new placeholder, and extend that placeholder. Rule #1 - single source of truth. Now this new placeholder can be updated without fear of breaking something. The placeholders all live in the same place, so we can control the inheritance with expected results.
 
-### NO) Create a custom selector, and extend a placeholder style and then add custom styles beneath it 
+### Should I create a custom selector, and extend a placeholder style and then add custom styles beneath it like this? Nope!
 
-**library/custom-page.scss**
+	// library/custom-page.scss:
 
 	.ux-unicorn-headline {
 	    @extend %fancy-headline;
